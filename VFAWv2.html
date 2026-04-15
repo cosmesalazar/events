@@ -1,0 +1,480 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+  /* ── RESET ── */
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  /* ── BASE (mobile-first) ── */
+  .site{font-family:'DM Sans',sans-serif;color:#f0ebe2;background:#0a0d0f;overflow-x:hidden;}
+
+  /* HERO */
+  .hero{position:relative;display:flex;flex-direction:column;justify-content:flex-start;padding:3rem 1.25rem 2.5rem;background:linear-gradient(160deg,#0a0d0f 0%,#111820 40%,#0f1c14 100%);overflow:hidden;}
+  .hero-bg-pattern{position:absolute;inset:0;background-image:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(74,140,80,.12) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 20% 80%,rgba(180,100,40,.08) 0%,transparent 60%);pointer-events:none;}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;}
+  .badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#8fbe7a;border:1px solid rgba(143,190,122,.4);padding:5px 12px;border-radius:2px;margin-bottom:1.25rem;}
+  .hero-eyebrow{font-family:'DM Serif Display',serif;font-style:italic;font-size:1rem;color:rgba(240,235,226,.5);margin-bottom:.4rem;letter-spacing:.02em;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:5.5rem;line-height:.88;letter-spacing:.01em;color:#f0ebe2;margin-bottom:.2rem;}
+  .hero-title span{color:#8fbe7a;}
+  .hero-subtitle{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;letter-spacing:.04em;color:rgba(240,235,226,.35);margin-bottom:1.5rem;}
+  .hero-meta{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+  .hero-meta-item{display:flex;flex-direction:column;gap:2px;}
+  .hero-meta-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,226,.35);}
+  .hero-meta-value{font-size:15px;font-weight:500;color:#f0ebe2;}
+  .hero-cta{display:block;width:100%;text-align:center;background:#8fbe7a;color:#0a0d0f;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:18px;border:none;cursor:pointer;border-radius:2px;transition:background .2s;}
+  .hero-cta:active{background:#a6d191;}
+  .scroll-hint{display:none;}
+
+  /* LAYOUT */
+  @keyframes scrollpulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+  section{padding:3rem 1.25rem;max-width:1100px;margin:0 auto;}
+  .section-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8fbe7a;margin-bottom:.75rem;}
+  .section-heading{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1.1;color:#f0ebe2;margin-bottom:1.25rem;}
+  .section-heading em{font-style:italic;color:rgba(240,235,226,.55);}
+  .divider{height:1px;background:linear-gradient(to right,transparent,rgba(143,190,122,.3),transparent);margin:0 1.25rem;}
+
+  /* VIA FERRATA */
+  .vf-layout{display:flex;flex-direction:column;gap:2rem;}
+  .vf-text p{font-size:15px;line-height:1.75;color:rgba(240,235,226,.65);margin-bottom:1rem;}
+  .vf-stat-row{display:flex;gap:0;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);}
+  .vf-stat{flex:1;padding-right:.5rem;}
+  .vf-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;color:#8fbe7a;}
+  .vf-stat-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,235,226,.4);margin-top:3px;}
+  .vf-visual{display:flex;flex-direction:column;gap:1.25rem;}
+  .embed-wrap{position:relative;width:100%;border-radius:4px;overflow:hidden;border:1px solid rgba(143,190,122,.15);}
+  .embed-wrap::before{content:'';display:block;padding-top:56.25%;}
+  .embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+  .embed-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,226,.3);margin-top:.5rem;}
+  .ig-wrap{position:relative;width:100%;border-radius:4px;overflow:hidden;border:1px solid rgba(143,190,122,.15);background:#111820;}
+  .ig-wrap::before{content:'';display:block;padding-top:120%;}
+  .ig-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+  .link-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.25rem;}
+  .ext-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8fbe7a;text-decoration:none;border:1px solid rgba(143,190,122,.3);padding:10px 14px;border-radius:2px;transition:background .2s;}
+
+  /* ACTIVITIES */
+  .media-grid{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+  .activities-grid{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+  .act-card{background:#111820;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .2s;}
+  .act-card.featured{background:linear-gradient(135deg,#0f1c14,#111820);border-color:rgba(143,190,122,.2);}
+  .act-icon{font-size:26px;margin-bottom:.75rem;display:block;}
+  .act-title{font-family:'DM Serif Display',serif;font-size:1.3rem;color:#f0ebe2;margin-bottom:.5rem;}
+  .act-desc{font-size:14px;line-height:1.7;color:rgba(240,235,226,.55);margin-bottom:.875rem;}
+  .act-price{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.06em;color:#8fbe7a;border:1px solid rgba(143,190,122,.3);padding:5px 12px;border-radius:2px;}
+
+  /* PRICING */
+  .pricing-block{background:#111820;border:1px solid rgba(143,190,122,.2);border-radius:4px;padding:1.5rem;position:relative;overflow:hidden;margin-top:2rem;}
+  .price-items{display:flex;flex-direction:column;gap:.875rem;}
+  .price-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:.875rem;border-bottom:1px solid rgba(255,255,255,.05);}
+  .price-row:last-child{border-bottom:none;padding-bottom:0;}
+  .price-row-label{font-size:14px;color:rgba(240,235,226,.7);}
+  .price-row-value{font-family:'DM Serif Display',serif;font-size:1.1rem;color:#f0ebe2;}
+  .price-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(143,190,122,.25);}
+  .price-total-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,226,.4);}
+  .price-total-value{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:#8fbe7a;line-height:1;}
+
+  /* DATES */
+  .dates-layout{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+  .date-card{background:#111820;border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:1.25rem;text-align:center;transition:border-color .2s,background .2s;}
+  .date-month{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8fbe7a;margin-bottom:.4rem;}
+  .date-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:#f0ebe2;}
+  .date-range{font-size:13px;color:rgba(240,235,226,.45);margin-top:.3rem;}
+  .date-note{display:inline-block;margin-top:.75rem;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,160,60,.8);border:1px solid rgba(240,160,60,.25);padding:3px 8px;border-radius:2px;}
+
+  /* FAQ */
+  .faq-section{padding:3rem 1.25rem;max-width:1100px;margin:0 auto;}
+  .faq-list{margin-top:2rem;display:flex;flex-direction:column;}
+  .faq-item{border-top:1px solid rgba(255,255,255,.07);}
+  .faq-item:last-child{border-bottom:1px solid rgba(255,255,255,.07);}
+  .faq-q{width:100%;background:none;border:none;color:#f0ebe2;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;text-align:left;padding:1.2rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;-webkit-tap-highlight-color:transparent;}
+  .faq-icon{font-size:22px;color:#8fbe7a;flex-shrink:0;transition:transform .25s;line-height:1;}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{font-size:14px;line-height:1.8;color:rgba(240,235,226,.6);max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s ease;}
+  .faq-item.open .faq-a{max-height:500px;padding-bottom:1.2rem;}
+
+  /* FORM */
+  .form-section{background:#0e1318;border-top:1px solid rgba(255,255,255,.05);padding:3rem 1.25rem;}
+  .form-inner{max-width:700px;margin:0 auto;}
+  .form-title{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:#f0ebe2;line-height:.9;margin-bottom:.5rem;}
+  .form-title span{color:#8fbe7a;}
+  .form-subtitle{font-size:15px;color:rgba(240,235,226,.45);margin-bottom:2rem;margin-top:.5rem;}
+  .form-group{margin-bottom:1.5rem;}
+  .form-label{display:block;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,235,226,.5);margin-bottom:.6rem;}
+  .form-input{width:100%;background:#111820;border:1px solid rgba(255,255,255,.1);color:#f0ebe2;font-family:'DM Sans',sans-serif;font-size:16px;padding:15px 16px;border-radius:3px;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+  .form-input:focus{border-color:rgba(143,190,122,.5);}
+  .form-input::placeholder{color:rgba(240,235,226,.2);}
+  .radio-group{display:flex;flex-direction:column;gap:10px;}
+  .radio-option{display:flex;align-items:center;gap:14px;padding:15px 16px;background:#111820;border:1px solid rgba(255,255,255,.07);border-radius:3px;cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent;}
+  .radio-option.selected{border-color:rgba(143,190,122,.6);background:rgba(143,190,122,.05);}
+  .radio-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .2s;}
+  .radio-option.selected .radio-dot{border-color:#8fbe7a;background:#8fbe7a;}
+  .radio-option.selected .radio-dot::after{content:'';width:7px;height:7px;border-radius:50%;background:#0a0d0f;}
+  .radio-text{font-size:14px;color:rgba(240,235,226,.75);line-height:1.4;}
+  .form-textarea{width:100%;background:#111820;border:1px solid rgba(255,255,255,.1);color:#f0ebe2;font-family:'DM Sans',sans-serif;font-size:16px;padding:15px 16px;border-radius:3px;outline:none;resize:vertical;min-height:100px;transition:border-color .2s;-webkit-appearance:none;}
+  .form-textarea:focus{border-color:rgba(143,190,122,.5);}
+  .form-textarea::placeholder{color:rgba(240,235,226,.2);}
+  .form-submit{width:100%;background:#8fbe7a;color:#0a0d0f;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:18px;border:none;border-radius:3px;cursor:pointer;margin-top:.5rem;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+  .form-submit:active{background:#a6d191;}
+  .success-msg{display:none;text-align:center;padding:2.5rem 1.5rem;background:rgba(143,190,122,.05);border:1px solid rgba(143,190,122,.2);border-radius:4px;margin-top:1.5rem;}
+  .success-msg.show{display:block;}
+  .success-heading{font-family:'DM Serif Display',serif;font-size:1.75rem;color:#8fbe7a;margin-bottom:.5rem;}
+  .success-sub{font-size:14px;color:rgba(240,235,226,.55);}
+  footer{padding:1.5rem 1.25rem;text-align:center;font-size:11px;letter-spacing:.08em;color:rgba(240,235,226,.2);border-top:1px solid rgba(255,255,255,.04);}
+
+  /* ── TABLET (≥640px) ── */
+  @media(min-width:640px){
+    .hero{padding:3.5rem 2rem 3rem;}
+    .hero-title{font-size:8rem;}
+    .hero-subtitle{font-size:3.2rem;}
+    .hero-meta{flex-direction:row;gap:2rem;}
+    .hero-cta{display:inline-block;width:auto;}
+    .scroll-hint{display:flex;position:absolute;bottom:2rem;right:2rem;flex-direction:column;align-items:center;gap:8px;color:rgba(240,235,226,.3);font-size:10px;letter-spacing:.15em;text-transform:uppercase;}
+    .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(143,190,122,.6),transparent);animation:scrollpulse 2s ease-in-out infinite;}
+    section,.faq-section{padding:4rem 2rem;}
+    .divider{margin:0 2rem;}
+    .section-heading{font-size:2.6rem;}
+    .form-section{padding:4rem 2rem;}
+    .form-title{font-size:5rem;}
+    .activities-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+    .act-card.featured{grid-column:span 2;}
+    .pricing-block{padding:2rem;}
+    .pricing-block::after{content:'~$350';position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(143,190,122,.07);line-height:1;pointer-events:none;}
+  }
+
+  /* ── DESKTOP (≥900px) ── */
+  @media(min-width:900px){
+    .hero{padding:4rem 2.5rem 3rem;}
+    .hero-title{font-size:11rem;}
+    .hero-subtitle{font-size:4.5rem;}
+    section,.faq-section{padding:5rem 2.5rem;}
+    .divider{margin:0 2.5rem;}
+    .section-heading{font-size:3.2rem;}
+    .vf-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+    .vf-stat-num{font-size:3rem;}
+    .form-section{padding:5rem 2.5rem;}
+    .form-title{font-size:5.5rem;}
+    .pricing-block{padding:3rem;}
+    .pricing-block::after{font-size:7rem;}
+    .act-card:hover{border-color:rgba(143,190,122,.25);transform:translateY(-2px);}
+    .date-card:hover{border-color:rgba(143,190,122,.4);background:#0f1c14;transform:translateY(-2px);}
+    .ext-link:hover{background:rgba(143,190,122,.08);}
+    .hero-cta:hover{background:#a6d191;transform:translateY(-1px);}
+    .form-submit:hover{background:#a6d191;transform:translateY(-1px);}
+    .scroll-hint{right:2.5rem;}
+  }
+</style>
+
+<div class="site">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-grid"></div>
+    <div class="badge">Ashley Gorge, Vernal UT — Adventure Weekend</div>
+    <p class="hero-eyebrow">You've been waiting for this</p>
+    <h1 class="hero-title">VIA<br><span>FERRATA</span></h1>
+    <p class="hero-subtitle">+ River Rafting</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Dates</span>
+        <span class="hero-meta-value">May 22–25 or Jun 4–7</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">All-in Cost</span>
+        <span class="hero-meta-value">~$350 / person</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Lodging</span>
+        <span class="hero-meta-value">8,000 sq ft · 5 bed · 7 bath</span>
+      </div>
+    </div>
+    <button class="hero-cta" onclick="scrollToForm()">Count me in →</button>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- VIA FERRATA -->
+  <section>
+    <div class="section-label">The Main Event</div>
+    <div class="vf-layout">
+      <div class="vf-text">
+        <h2 class="section-heading">The Largest Public<br>Via Ferrata <em>in the US.</em></h2>
+        <p>Ashley Gorge Via Ferrata isn't a walk in the park. It's a full-body climb through one of Utah's most dramatic canyon systems — iron rungs, cables, and ledges carved into sheer rock face, hundreds of feet above the canyon floor.</p>
+        <p>Via Ferrata (Italian for "iron road") combines the thrill of technical climbing with accessibility — no ropes to rig, no anchor-setting skills required. Just your harness, your nerve, and the view.</p>
+        <p>Guided Via Ferrata experiences often run $250+ per person. We've locked in gear rental at <strong style="color:#f0ebe2">$45/person</strong> — less if you bring your own.</p>
+        <div class="link-row">
+          <a class="ext-link" href="https://www.utahviaferrata.com/" target="_blank">↗ Official Site</a>
+        </div>
+        <div class="vf-stat-row">
+          <div class="vf-stat">
+            <div class="vf-stat-num">#1</div>
+            <div class="vf-stat-label">Largest public via ferrata in US</div>
+          </div>
+          <div class="vf-stat">
+            <div class="vf-stat-num">$45</div>
+            <div class="vf-stat-label">Gear rental / person</div>
+          </div>
+          <div class="vf-stat">
+            <div class="vf-stat-num">6hr</div>
+            <div class="vf-stat-label">Full canyon route</div>
+          </div>
+        </div>
+      </div>
+      <div class="vf-visual">
+        <div>
+          <div class="embed-wrap">
+            <iframe src="https://www.youtube.com/embed/eMChcBie9Zg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Ashley Gorge Via Ferrata video"></iframe>
+          </div>
+          <p class="embed-label">↑ Watch: Ashley Gorge Via Ferrata</p>
+        </div>
+        <div>
+          <div class="ig-wrap">
+            <iframe src="https://www.instagram.com/reel/DVRM1HuD7X1/embed/" allowfullscreen scrolling="no" title="Ashley Gorge Instagram Reel"></iframe>
+          </div>
+          <p class="embed-label">↑ Instagram Reel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ACTIVITIES -->
+  <section>
+    <div class="section-label">Full Weekend Lineup</div>
+    <h2 class="section-heading">Everything <em>included.</em></h2>
+    <div class="activities-grid">
+      <div class="act-card featured">
+        <span class="act-icon">🧗</span>
+        <div class="act-title">Ashley Gorge Via Ferrata</div>
+        <p class="act-desc">Clip in and climb one of Utah's most spectacular canyon walls. Iron rungs, tension cables, and ledge traverses — this is as close as you get to technical alpinism without years of training. The largest public via ferrata in the US, right in your backyard.</p>
+        <span class="act-price">$45 / person · gear rental included</span>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">🌊</span>
+        <div class="act-title">River Rafting</div>
+        <p class="act-desc">Class II and III rapids on the Green River or Flaming Gorge. Get wet, get loud, hold on.</p>
+        <span class="act-price">~$115 / person</span>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">🏠</span>
+        <div class="act-title">The House - Wow, this place is nice!</div>
+        <p class="act-desc">An 8,000 sq ft home with 5 bedrooms and 7 bathrooms. Everyone gets a bed. No sleeping on floors.</p>
+        <span class="act-price">Included in trip cost</span>
+      </div>
+    </div>
+
+    <div class="pricing-block">
+      <div class="price-items">
+        <div class="price-row">
+          <span class="price-row-label">Via Ferrata (gear rental)</span>
+          <span class="price-row-value">$45</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">River Rafting</span>
+          <span class="price-row-value">$115</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Lodging</span>
+          <span class="price-row-value">~$190</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Meals</span>
+          <span class="price-row-value">Included</span>
+        </div>
+        <div class="price-total-row">
+          <span class="price-total-label">All-in, per person</span>
+          <span class="price-total-value">~$350</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DATES -->
+  <section>
+    <div class="section-label">Choose Your Weekend</div>
+    <h2 class="section-heading">Two dates.<br><em>Pick yours.</em></h2>
+    <div class="dates-layout">
+      <div class="date-card">
+        <div class="date-month">May · Memorial Day Weekend</div>
+        <div class="date-num">22–25</div>
+        <div class="date-range">Thursday → Sunday</div>
+        <span class="date-note">Memorial Day Weekend</span>
+      </div>
+      <div class="date-card">
+        <div class="date-month">June</div>
+        <div class="date-num">4–7</div>
+        <div class="date-range">Thursday → Sunday</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="section-label">Need to Know</div>
+    <h2 class="section-heading">Frequently Asked <em>Questions.</em></h2>
+    <div class="faq-list" id="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Who is coming?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">The group will include around 15 adventurous singles, evenly split between men and women. Fill out the form below if there's someone we absolutely have to invite.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I come if I don't want to do one of the activities?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes! We can adjust the price if you don't participate in some of the activities. That said, we encourage you to participate as much as you're comfortable with — you might surprise yourself.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is the Via Ferrata dangerous?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We'll take every safety precaution and do a little training before heading out to keep everyone safe. There's also a short loop that gives anyone who isn't feeling it a chance to turn back after a couple miles — about 1–2 hours — instead of committing to the full canyon route, which runs around 6 hours.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Who should I contact with questions?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Reach out to Cosme — I believe you know how to reach him 😉</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FORM -->
+  <div id="rsvp" class="form-section">
+    <div class="form-inner">
+      <h2 class="form-title">ARE<br>YOU<br><span>IN?</span></h2>
+      <p class="form-subtitle">Take 60 seconds. It makes planning a lot easier.</p>
+
+      <div id="the-form">
+        <iframe name="hidden-gform" style="display:none;"></iframe>
+        <form
+          action="https://docs.google.com/forms/d/e/1FAIpQLScfihkwHlmoLao6_SOCkOPmd-SCRSeBysK8cGWaV3EcF3S5ow/formResponse"
+          method="POST"
+          target="hidden-gform"
+          onsubmit="handleSubmit(event)"
+        >
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" name="entry.394792450" id="fname" placeholder="First and last name" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Are you joining us?</label>
+<div class="radio-group" id="availability">
+  <div class="radio-option" data-val="Shut up and take my money — I'm in for either date!" onclick="selectRadio(this,'availability')">
+    <div class="radio-dot"></div>
+    <span class="radio-text">Shut up and take my money — I'm in for either date!</span>
+  </div>
+  <div class="radio-option" data-val="I can come June 4–7, but not Memorial Day weekend" onclick="selectRadio(this,'availability')">
+    <div class="radio-dot"></div>
+    <span class="radio-text">I can come June 4–7, but not Memorial Day weekend</span>
+  </div>
+  <div class="radio-option" data-val="I can come Memorial Day weekend (May 22–25), but not June 4–7" onclick="selectRadio(this,'availability')">
+    <div class="radio-dot"></div>
+    <span class="radio-text">I can come Memorial Day weekend (May 22–25), but not June 4–7</span>
+  </div>
+  <div class="radio-option" data-val="Can't make this one work — have fun without me!" onclick="selectRadio(this,'availability')">
+    <div class="radio-dot"></div>
+    <span class="radio-text">Can't make this one work — have fun without me!</span>
+  </div>
+</div>
+            <input type="hidden" name="entry.2114838393" id="availability-val" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Who should join us? (friends, partners, etc.)</label>
+            <input class="form-input" type="text" name="entry.1503517639" id="bring" placeholder="Names or 'just me'" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Questions or comments?</label>
+            <textarea class="form-textarea" name="entry.1224210023" id="comments" placeholder="Anything else on your mind..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Submit my RSVP →</button>
+        </form>
+      </div>
+
+      <div class="success-msg" id="success">
+        <div class="success-heading">You're on the list.</div>
+        <p class="success-sub">Thanks for responding. We'll be in touch with final details once the dates are locked in.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Ashley Gorge Via Ferrata Weekend · Vernal, Utah · 2025
+  </footer>
+
+</div>
+
+<script>
+var radioSelections={};
+
+function scrollToForm(){
+  var el=document.getElementById('rsvp');
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function selectRadio(el,group){
+  var opts=document.getElementById(group).querySelectorAll('.radio-option');
+  opts.forEach(function(o){o.classList.remove('selected');});
+  el.classList.add('selected');
+  radioSelections[group]=el.getAttribute('data-val');
+  var hidden=document.getElementById(group+'-val');
+  if(hidden) hidden.value=el.getAttribute('data-val');
+}
+
+function toggleFaq(btn){
+  var item=btn.parentElement;
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');});
+  if(!isOpen) item.classList.add('open');
+}
+
+function handleSubmit(e){
+  var name=document.getElementById('fname').value.trim();
+  var avail=document.getElementById('availability-val').value;
+  if(!name){
+    e.preventDefault();
+    var inp=document.getElementById('fname');
+    inp.focus();
+    inp.style.borderColor='rgba(220,80,60,.5)';
+    setTimeout(function(){inp.style.borderColor='';},2000);
+    return;
+  }
+  if(!avail){
+    e.preventDefault();
+    var rg=document.getElementById('availability');
+    rg.style.outline='1px solid rgba(220,80,60,.4)';
+    rg.style.borderRadius='3px';
+    setTimeout(function(){rg.style.outline='';},2000);
+    return;
+  }
+  setTimeout(function(){
+    document.getElementById('the-form').style.display='none';
+    document.getElementById('success').classList.add('show');
+  },500);
+}
+</script>
