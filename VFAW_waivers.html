@@ -1,0 +1,201 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+  /* ── RESET ── */
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  /* ── BASE (mobile-first) ── */
+  .site{font-family:'DM Sans',sans-serif;color:#f0ebe2;background:#0a0d0f;overflow-x:hidden;}
+
+  /* HERO */
+  .hero{position:relative;display:flex;flex-direction:column;justify-content:flex-start;padding:3rem 1.25rem 2.5rem;background:linear-gradient(160deg,#0a0d0f 0%,#111820 40%,#0f1c14 100%);overflow:hidden;}
+  .hero-bg-pattern{position:absolute;inset:0;background-image:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(74,140,80,.12) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 20% 80%,rgba(180,100,40,.08) 0%,transparent 60%);pointer-events:none;}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+  .badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#8fbe7a;border:1px solid rgba(143,190,122,.4);padding:5px 12px;border-radius:2px;margin-bottom:1.25rem;}
+  .badge-check{display:inline-block;width:11px;height:11px;border-radius:50%;background:#8fbe7a;color:#0a0d0f;font-size:8px;font-weight:700;text-align:center;line-height:11px;margin-right:6px;vertical-align:1px;}
+  .hero-eyebrow{font-family:'DM Serif Display',serif;font-style:italic;font-size:1rem;color:rgba(240,235,226,.5);margin-bottom:.4rem;letter-spacing:.02em;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:5.5rem;line-height:.88;letter-spacing:.01em;color:#f0ebe2;margin-bottom:.2rem;}
+  .hero-title span{color:#8fbe7a;}
+  .hero-subtitle{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;letter-spacing:.04em;color:rgba(240,235,226,.35);margin-bottom:1.5rem;}
+  .hero-meta{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+  .hero-meta-item{display:flex;flex-direction:column;gap:2px;}
+  .hero-meta-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,226,.35);}
+  .hero-meta-value{font-size:15px;font-weight:500;color:#f0ebe2;}
+  .hero-meta-value .ok{color:#8fbe7a;}
+  .hero-cta{display:block;width:100%;text-align:center;background:#8fbe7a;color:#0a0d0f;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:18px;border:none;cursor:pointer;border-radius:2px;transition:background .2s;text-decoration:none;}
+  .hero-cta:active{background:#a6d191;}
+  .scroll-hint{display:none;}
+  @keyframes scrollpulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+  /* LAYOUT */
+  section{padding:3rem 1.25rem;max-width:1100px;margin:0 auto;}
+  .section-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8fbe7a;margin-bottom:.75rem;}
+  .section-heading{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1.1;color:#f0ebe2;margin-bottom:1.25rem;}
+  .section-heading em{font-style:italic;color:rgba(240,235,226,.55);}
+  .section-intro{font-size:15px;line-height:1.7;color:rgba(240,235,226,.6);margin-bottom:.5rem;max-width:640px;}
+  .divider{height:1px;background:linear-gradient(to right,transparent,rgba(143,190,122,.3),transparent);margin:0 1.25rem;}
+
+  /* WAIVERS */
+  .waiver-grid{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+  .waiver-card{background:linear-gradient(135deg,#0f1c14,#111820);border:1px solid rgba(143,190,122,.2);border-radius:4px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column;}
+  .waiver-head{display:flex;align-items:flex-start;gap:.875rem;margin-bottom:1rem;}
+  .waiver-icon{font-size:32px;line-height:1;flex-shrink:0;}
+  .waiver-head-text{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;}
+  .waiver-name{font-family:'DM Serif Display',serif;font-size:1.35rem;color:#f0ebe2;line-height:1.2;}
+  .waiver-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,226,.45);}
+  .waiver-tag strong{color:#8fbe7a;font-weight:500;}
+  .waiver-desc{font-size:14px;line-height:1.7;color:rgba(240,235,226,.6);margin-bottom:1.25rem;flex:1;}
+  .waiver-cta{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;background:#8fbe7a;color:#0a0d0f;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:14px;border:none;cursor:pointer;border-radius:2px;transition:background .2s;text-decoration:none;}
+  .waiver-cta:active{background:#a6d191;}
+  .waiver-meta{display:flex;gap:1.25rem;margin-top:.875rem;padding-top:.875rem;border-top:1px solid rgba(255,255,255,.05);}
+  .waiver-meta-item{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,235,226,.4);}
+  .waiver-meta-item strong{display:block;color:#f0ebe2;font-weight:500;font-size:12px;letter-spacing:.02em;text-transform:none;margin-top:2px;}
+
+  /* VIDEO */
+  .video-section{background:#0e1318;border-top:1px solid rgba(255,255,255,.05);padding:3rem 1.25rem;}
+  .video-inner{max-width:1100px;margin:0 auto;}
+  .embed-wrap{position:relative;width:100%;border-radius:4px;overflow:hidden;border:1px solid rgba(143,190,122,.15);margin-top:2rem;}
+  .embed-wrap::before{content:'';display:block;padding-top:56.25%;}
+  .embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+  .embed-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,226,.3);margin-top:.75rem;}
+  .ext-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8fbe7a;text-decoration:none;border:1px solid rgba(143,190,122,.3);padding:10px 14px;border-radius:2px;transition:background .2s;margin-top:1rem;}
+
+  footer{padding:1.5rem 1.25rem;text-align:center;font-size:11px;letter-spacing:.08em;color:rgba(240,235,226,.2);border-top:1px solid rgba(255,255,255,.04);}
+
+  /* ── TABLET (≥640px) ── */
+  @media(min-width:640px){
+    .hero{padding:3.5rem 2rem 3rem;}
+    .hero-title{font-size:8rem;}
+    .hero-subtitle{font-size:3.2rem;}
+    .hero-meta{flex-direction:row;gap:2rem;}
+    .hero-cta{display:inline-block;width:auto;}
+    .scroll-hint{display:flex;position:absolute;bottom:2rem;right:2rem;flex-direction:column;align-items:center;gap:8px;color:rgba(240,235,226,.3);font-size:10px;letter-spacing:.15em;text-transform:uppercase;}
+    .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(143,190,122,.6),transparent);animation:scrollpulse 2s ease-in-out infinite;}
+    section{padding:4rem 2rem;}
+    .video-section{padding:4rem 2rem;}
+    .divider{margin:0 2rem;}
+    .section-heading{font-size:2.6rem;}
+    .waiver-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  }
+
+  /* ── DESKTOP (≥900px) ── */
+  @media(min-width:900px){
+    .hero{padding:4rem 2.5rem 3rem;}
+    .hero-title{font-size:11rem;}
+    .hero-subtitle{font-size:4.5rem;}
+    section{padding:5rem 2.5rem;}
+    .video-section{padding:5rem 2.5rem;}
+    .divider{margin:0 2.5rem;}
+    .section-heading{font-size:3.2rem;}
+    .waiver-card:hover{border-color:rgba(143,190,122,.4);transform:translateY(-2px);}
+    .waiver-cta:hover{background:#a6d191;transform:translateY(-1px);}
+    .ext-link:hover{background:rgba(143,190,122,.08);}
+    .hero-cta:hover{background:#a6d191;transform:translateY(-1px);}
+    .scroll-hint{right:2.5rem;}
+  }
+</style>
+
+<div class="site">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-grid"></div>
+    <div class="badge"><span class="badge-check">✓</span>You're confirmed · Memorial Day Weekend</div>
+    <p class="hero-eyebrow">Payment received. Now the fun part.</p>
+    <h1 class="hero-title">YOU'RE<br><span>IN.</span></h1>
+    <p class="hero-subtitle">Two quick waivers to go</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Trip dates</span>
+        <span class="hero-meta-value">May 22–25, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Your spot</span>
+        <span class="hero-meta-value"><span class="ok">✓</span> Locked in</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Left to do</span>
+        <span class="hero-meta-value">2 waivers · ~5 min</span>
+      </div>
+    </div>
+    <a class="hero-cta" href="#waivers" onclick="scrollToWaivers(event)">Sign waivers →</a>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WAIVERS -->
+  <section id="waivers">
+    <div class="section-label">Required Before You Arrive</div>
+    <h2 class="section-heading">Two waivers.<br><em>Just a few minutes each.</em></h2>
+    <p class="section-intro">Standard liability paperwork — one for the Via Ferrata gear, one for the course. Please complete both before Wednesday, May 20 so we're not chasing signatures the day of.</p>
+
+    <div class="waiver-grid">
+
+      <!-- VIA FERRATA GEAR WAIVER -->
+      <div class="waiver-card">
+        <div class="waiver-head">
+          <span class="waiver-icon">🧗</span>
+          <div class="waiver-head-text">
+            <div class="waiver-name">Via Ferrata Gear Waiver</div>
+            <div class="waiver-tag"><strong>Dyno Outfitters</strong> · for Sunday's climb</div>
+          </div>
+        </div>
+        <p class="waiver-desc">A release for the harness, lanyards, and helmet you'll be clipped into all day. Quick form, sign and submit.</p>
+        <a class="waiver-cta" href="https://form.jotform.com/dynooutfitters/gear-rental-waiver" target="_blank" rel="noopener">Sign gear waiver →</a>
+        <div class="waiver-meta">
+       </div>
+      </div>
+
+      <!-- RIVER RAFTING WAIVER -->
+      <div class="waiver-card">
+        <div class="waiver-head">
+          <span class="waiver-icon">🧗</span>
+          <div class="waiver-head-text">
+            <div class="waiver-name">Last Waiver Here</div>
+            <div class="waiver-tag"><strong>Uintah County</strong></div>
+          </div>
+        </div>
+        <p class="waiver-desc">Liability release for Unitah County, short video, waiver, and you're done.</p>
+        <a class="waiver-cta" href="https://waiver.smartwaiver.com/w/x23so7gn7imxbpc6zvo81u/web/" target="_blank" rel="noopener">Sign waiver →</a>
+        <div class="waiver-meta">
+                </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="video-inner">
+      <div class="section-label">Want A Preview?</div>
+      <h2 class="section-heading">See what<br>you <em>just signed up for.</em></h2>
+      <p class="section-intro">A quick look at how to use the gear and a map of the terrain we will cover. We will cover this information in person, but some of you might want a preview.</p>
+      <div class="embed-wrap">
+        <iframe src="https://www.youtube.com/embed/OPN6qQNFGi0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Ashley Gorge Via Ferrata preview"></iframe>
+      </div>
+      <p class="embed-label">↑ Watch: Ashley Gorge Via Ferrata</p>
+    </div>
+  </div>
+
+  <footer>
+    Ashley Gorge Via Ferrata Weekend · Vernal, Utah · 2026
+  </footer>
+
+</div>
+
+<script>
+function scrollToWaivers(e){
+  if(e) e.preventDefault();
+  var el=document.getElementById('waivers');
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
